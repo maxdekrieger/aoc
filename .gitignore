@@ -1,0 +1,24 @@
+.servletapp
+.webdsl-fragment-cache
+.webdsl-parsecache
+lib/scala-library.jar
+lib/execdaemon-frontend.jar
+application.ini
+application.ini.local
+application-local.ini
+.dependencies.webdsl
+.saved-but-not-built
+/bin
+weblab build.xml.launch
+weblab clean-project.xml.launch
+.cache
+.project
+WebContent
+.classpath
+.settings
+build.xml
+clean-project.xml
+benchmarks/structured/result
+benchmarks/structured/urls
+ROOT*.war
+.DS_Store

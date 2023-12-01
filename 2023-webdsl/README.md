@@ -1,4 +1,11 @@
-application day01
+# Advent of Code 2023 - WebDSL
+
+Advent of Code 2023 challenges in [WebDSL](https://webdsl.org).
+
+## Template
+
+```
+application dayXX
 
   page root(){ "Hello world" }
 
@@ -8,3 +15,6 @@ application day01
       //
     }
   }
+
+```
+

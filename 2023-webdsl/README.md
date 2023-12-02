@@ -13,7 +13,7 @@ application dayXX
     for( l in "../aoc-input/example-input-part1.txt".pathToFile().getContentAsString().trim().split("\n")) {
       //
     }
-    
+
     log("----------------- AOC ANSWER PART 1 -----------------");
     log("");
     log("-----------------------------------------------------");
@@ -23,7 +23,7 @@ application dayXX
     for( l in "../aoc-input/example-input-part2.txt".pathToFile().getContentAsString().trim().split("\n")) {
       //
     }
-    
+
     log("----------------- AOC ANSWER PART 2 -----------------");
     log("");
     log("-----------------------------------------------------");

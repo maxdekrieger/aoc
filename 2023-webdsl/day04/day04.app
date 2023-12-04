@@ -6,7 +6,7 @@ application day04
     var total := 0;
     for( l in [l.trim() | l in "../aoc-input/input-part1.txt".pathToFile().getContentAsString().trim().split("\n")]) {
       // parsing
-      var split := [ /\s\s/.replaceAll(" ", /\s\s\s/.replaceAll(" ", s.trim())) | s in l.split(": ")[1].split(" | ")];
+      var split := [ /\s\s+/.replaceAll(" ", s.trim()) | s in l.split(": ")[1].split(" | ")];
       var winningNumbers := [s.parseInt() | s in split[0].split(" ")];
       var numbers := [s.parseInt() | s in split[1].split(" ")];
 
@@ -44,7 +44,7 @@ application day04
 
     for( i : Int from 1 to cards.length + 1) {
       // parsing
-      var split := [ /\s\s/.replaceAll(" ", /\s\s\s/.replaceAll(" ", s.trim())) | s in cards[(i-1)].split(": ")[1].split(" | ")];
+      var split := [ /\s\s+/.replaceAll(" ", s.trim()) | s in cards[(i-1)].split(": ")[1].split(" | ")];
       var winningNumbers := [s.parseInt() | s in split[0].split(" ")];
       var numbers := [s.parseInt() | s in split[1].split(" ")];
 

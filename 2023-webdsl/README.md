@@ -2,7 +2,9 @@
 
 Advent of Code 2023 challenges in [WebDSL](https://webdsl.org).
 
-To run the code:
+## Running the code
+
+To execute the solution programs on the given input:
 
 1. [Install WebDSL](https://webdsl.org/howtos/install/).
 2. Change directory to the day you want to run the solution of (e.g. `cd <repo_root>/2023-webdsl/day01`).

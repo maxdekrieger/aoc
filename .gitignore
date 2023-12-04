@@ -22,3 +22,7 @@ benchmarks/structured/result
 benchmarks/structured/urls
 ROOT*.war
 .DS_Store
+
+*.db
+*build.xml.launch
+*clean-project.xml.launch

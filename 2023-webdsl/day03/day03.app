@@ -75,17 +75,24 @@ application day03
     for (y : Int from 0 to maxY) {
       for (x : Int from 0 to maxX) {
         if (grid[y][x] == "*") {
-          // possibly we found a gear
+          // possibly we found a gear,
+          // check all adjacent coordinates for part numbers
           var adjacentParts := List<Int>();
           var adjacentCoordinates := adjacentCoordinates(x, y);
           while (adjacentCoordinates.length > 0) {
+            // pop the first coordinate to check from the stack and de-serialize it into X and Y coords
             var coordString := adjacentCoordinates.get(0);
             adjacentCoordinates.remove(coordString);
             var coordX := coordString.split(", ")[0].parseInt();
             var coordY := coordString.split(", ")[1].parseInt();
+
+            // if it is a digit, add the whole number it belongs to to the adjacent parts list
             if (isDigit(coordX, coordY, grid)) {
               var numberAtCoordinate := numberAtCoordinate(coordX, coordY, grid);
               adjacentParts.add(numberAtCoordinate);
+
+              // and remove possible other parts of the number that are also in the adjacent list,
+              // to avoid adding the same number twice
               var newX := coordX + 1;
               while (isDigit(newX, coordY, grid)) {
                 adjacentCoordinates.remove("~newX, ~coordY");
@@ -94,6 +101,7 @@ application day03
             }
           }
 
+          // it only counts as gear when there are exactly two parts adjacent
           if (adjacentParts.length == 2) {
             total := total + (adjacentParts[0] * adjacentParts[1]);
           }

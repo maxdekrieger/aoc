@@ -5,10 +5,8 @@ application day04
   test part1 {
     var total := 0;
     for( l in [l.trim() | l in "../aoc-input/input-part1.txt".pathToFile().getContentAsString().trim().split("\n")]) {
-      // parsing
-      var split := [ /\s\s+/.replaceAll(" ", s.trim()) | s in l.split(": ")[1].split(" | ")];
-      var winningNumbers := [s.parseInt() | s in split[0].split(" ")];
-      var numbers := [s.parseInt() | s in split[1].split(" ")];
+      var winningNumbers := [m[1].parseInt() | m in /(\d+)\s/.allGroups(l.split("|")[0])];
+      var numbers := [m[1].parseInt() | m in /\s(\d+)/.allGroups(l.split("|")[1])];
 
       var amountOfWinningNumbers := 0;
       for (n in numbers) {
@@ -44,9 +42,8 @@ application day04
 
     for( i : Int from 1 to cards.length + 1) {
       // parsing
-      var split := [ /\s\s+/.replaceAll(" ", s.trim()) | s in cards[(i-1)].split(": ")[1].split(" | ")];
-      var winningNumbers := [s.parseInt() | s in split[0].split(" ")];
-      var numbers := [s.parseInt() | s in split[1].split(" ")];
+      var winningNumbers := [m[1].parseInt() | m in /(\d+)\s/.allGroups(l.split("|")[0])];
+      var numbers := [m[1].parseInt() | m in /\s(\d+)/.allGroups(l.split("|")[1])];
 
       var amountOfWinningNumbers := 0;
       for (n in numbers) {

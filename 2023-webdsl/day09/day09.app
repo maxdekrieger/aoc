@@ -16,7 +16,7 @@ application day09
         completelyZero := true;
 
         for (i : Int from 1 to previousLayer.length) {
-          var diff := previousLayer[i] - (previousLayer[(i-1)]);
+          var diff := previousLayer[i] - previousLayer[(i-1)];
           completelyZero := completelyZero && diff == 0L;
           derivative.add(diff);
         }

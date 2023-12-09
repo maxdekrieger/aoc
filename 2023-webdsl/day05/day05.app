@@ -4,8 +4,8 @@ application day05
 
   test part1 {
     // parsing
-    var seeds := List<Long>();
-    var maps := List<AlmanacMap>();
+    var seeds : [Long];
+    var maps : [AlmanacMap];
     for (l in [l.trim() | l in "../aoc-input/input-part1.txt".pathToFile().getContentAsString().trim().split("\n")]) {
       if (l.startsWith("seeds: ")) {
         seeds := [match[1].parseLong() | match in /(\d+)/.allGroups(l)];
@@ -70,8 +70,8 @@ application day05
   }
 
   test part2 {
-    var seedRanges := List<Range>();
-    var maps := List<AlmanacMap>();
+    var seedRanges : [Range];
+    var maps : [AlmanacMap];
     for (l in [l.trim() | l in "../aoc-input/input-part2.txt".pathToFile().getContentAsString().trim().split("\n")]) {
       // convert seeds to ranges with themselves as origin
       if (l.startsWith("seeds: ")) {
@@ -106,7 +106,7 @@ application day05
       var m := maps[i];
       m.fillAndOrderRanges();
       m.log(i+1);
-      var newRanges := List<Range>();
+      var newRanges : [Range];
       for (r in ranges) {
         newRanges.addAll(m.mapRange(r));
       }
@@ -150,7 +150,7 @@ application day05
         });
       }
 
-      var newRanges := List<MapRange>();
+      var newRanges : [MapRange];
       newRanges.addAll(ranges);
       for (i : Int from 1 to ranges.length) {
         var prev := ranges[(i-1)];
@@ -169,7 +169,7 @@ application day05
 
     function mapRange(r : Range) : [Range] {
       // split ranges into multiple ranges based on the map
-      var result := List<Range>();
+      var result : [Range];
       var start := r.start;
       var done := false;
       for (mr in ranges) {

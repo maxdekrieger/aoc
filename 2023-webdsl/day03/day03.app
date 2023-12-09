@@ -77,7 +77,7 @@ application day03
         if (grid[y][x] == "*") {
           // possibly we found a gear,
           // check all adjacent coordinates for part numbers
-          var adjacentParts := List<Int>();
+          var adjacentParts : [Int];
           var adjacentCoordinates := adjacentCoordinates(x, y);
           while (adjacentCoordinates.length > 0) {
             // pop the first coordinate to check from the stack and de-serialize it into X and Y coords

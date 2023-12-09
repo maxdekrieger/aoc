@@ -9,7 +9,7 @@ application day02
       var tooMuchRed := /(1[3-9]|[2-9]\d|\d{3,})\sred/.find(l);
       var tooMuchGreen := /(1[4-9]|[2-9]\d|\d{3,})\sgreen/.find(l);
       var tooMuchBlue := /(1[5-9]|[2-9]\d|\d{3,})\sblue/.find(l);
-      
+
       if (!tooMuchRed && !tooMuchGreen && !tooMuchBlue) {
         total := total + gameId;
       }

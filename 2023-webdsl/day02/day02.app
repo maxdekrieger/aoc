@@ -21,34 +21,27 @@ application day02
   }
 
   test part2 {
-    var total := 0;
-    for( l in "../aoc-input/input-part2.txt".pathToFile().getContentAsString().trim().split("\n")) {
-      // parsing
-      var lineSplit := l.split(":");
-      var sets := lineSplit[1].trim().split("; ");
-
-      var minimumRed := 0;
-      var minimumGreen := 0;
-      var minimumBlue := 0;
-      for (set in sets) {
-        for (cubes in set.split(", ")) {
-          var cubesSplit := cubes.split(" ");
-          var numberOfCubes := cubesSplit[0].parseInt();
-          var color := cubesSplit[1];
-
-          if (color == "red")   { minimumRed := max(minimumRed, numberOfCubes); }
-          if (color == "green") { minimumGreen := max(minimumGreen, numberOfCubes); }
-          if (color == "blue")  { minimumBlue := max(minimumBlue, numberOfCubes); }
-        }
-      }
-      total := total + (minimumRed * minimumGreen * minimumBlue);
-    }
+    var total := sum(
+      [
+            max([m[1].parseInt() | m in /(\d+)\sred/.allGroups(l)])
+          * max([m[1].parseInt() | m in /(\d+)\sgreen/.allGroups(l)])
+          * max([m[1].parseInt() | m in /(\d+)\sblue/.allGroups(l)])
+        |
+          l in "../aoc-input/input-part2.txt".pathToFile().getContentAsString().trim().split("\n")
+      ]
+    );
 
     log("----------------- AOC ANSWER PART 2 -----------------");
     log(total);
     log("-----------------------------------------------------");
   }
 
-  function max(i : Int, j : Int) : Int {
-    if(i > j) { return i; } else { return j; }
+  function sum(ns: List<Int>): Int {
+    var s := 0;
+    for(n: Int in ns) { s := s + n; }
+    return s;
+  }
+
+  function max(ls : [Int]) : Int {
+    return [n | n in ls order by n desc][0];
   }

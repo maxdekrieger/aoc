@@ -7,7 +7,7 @@ application day06
     var lines := "../aoc-input/input-part1.txt".pathToFile().getContentAsString().trim().split("\n");
     var times := /(\d+)/.allGroups(lines[0]);
     var distances := /(\d+)/.allGroups(lines[1]);
-    var races := List<Race>();
+    var races : [Race];
     for (i : Int from 0 to times.length) {
       races.add(Race{
         duration := times[i][1].parseInt()
@@ -18,7 +18,7 @@ application day06
     // problem solving
     var total := 1;
     for (r in races){
-      var recordBeatingStrategies := List<Int>();
+      var recordBeatingStrategies : [Int];
       // skip 0 and maximum time, having 0 speed or 0ms to travel wont work
       for (i : Int from 1 to r.duration) {
         if (r.beatsRecord(i)) {
@@ -48,10 +48,13 @@ application day06
     var lines := "../aoc-input/input-part2.txt".pathToFile().getContentAsString().trim();
     var parsedRace := [(/\s/.replaceAll("", m[0])) | m in /(\d+\s+)+(\d+)/.allGroups(lines)];
     log(parsedRace);
-    var race := Race{ duration := parsedRace[0].parseInt(), record := parsedRace[1].parseLong() };
+    var race := Race{
+      duration := parsedRace[0].parseInt()
+      record := parsedRace[1].parseLong()
+    };
 
     // "problem solving" (a.k.a. brute force)
-    var recordBeatingStrategies := List<Int>();
+    var recordBeatingStrategies : [Int];
     // skip 0 and maximum time, having 0 speed or 0ms to travel wont work
     for (i : Int from 1 to race.duration) {
       if (race.beatsRecord(i)) {

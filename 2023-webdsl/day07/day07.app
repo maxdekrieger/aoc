@@ -3,7 +3,7 @@ application day07
   page root(){ "Hello world" }
 
   test part1 {
-    var hands := List<Hand>();
+    var hands : [Hand];
     for( l in "../aoc-input/input-part1.txt".pathToFile().getContentAsString().trim().split("\n")) {
       hands.add(Hand.fromInputPart1(l));
     }
@@ -82,7 +82,7 @@ application day07
   }
 
   function getHandTypePart1(cards : [Int]) : HandType {
-    var counts := List<Int>();
+    var counts : [Int];
     for (i : Int from 0 to 13) { counts.add(i-i); }
     for (c in cards) { counts.set(c, counts.get(c) + 1); }
 
@@ -127,7 +127,7 @@ application day07
   }
 
   test part2 {
-    var hands := List<Hand>();
+    var hands : [Hand];
     for( l in "../aoc-input/input-part2.txt".pathToFile().getContentAsString().trim().split("\n")) {
       hands.add(Hand.fromInputPart2(l));
     }
@@ -151,7 +151,7 @@ application day07
         bid := groups[2].parseInt()
         cardsString := groups[1]
       };
-      var cards : [Int] := cardsToBase13Part2(groups[1]);
+      var cards := cardsToBase13Part2(groups[1]);
       var handType := getHandTypePart2(cards);
       var handTypeOrder := [highCard, onePair, twoPair, threeOfAKind, fullHouse, fourOfAKind, fiveOfAKind];
       var individualCardScore := base13HandToBase10(cards);
@@ -162,7 +162,7 @@ application day07
   }
 
   function cardsToBase13Part2(s : String) : [Int] {
-    var result := List<Int>();
+    var result : [Int];
     for (c in s.split()) {
       case(c) {
         "J" { result.add(0); }
@@ -184,10 +184,9 @@ application day07
   }
 
   function getHandTypePart2(cards : [Int]) : HandType {
-    var counts := List<Int>();
+    var counts : [Int];
 
-    // dont include jokers (0)
-    for (i : Int from 0 to 13) { counts.add(i-i); }
+    for (i : Int from 0 to 13) { counts.add(0); }
 
     var amountOfJokers := 0;
     for (c in cards) {

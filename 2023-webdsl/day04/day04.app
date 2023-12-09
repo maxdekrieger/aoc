@@ -62,7 +62,7 @@ application day04
     log("-----------------------------------------------------");
   }
 
-  function sum(ns: List<Int>): Int {
+  function sum(ns: [Int]): Int {
     var s := 0;
     for(n: Int in ns) { s := s + n; }
     return s;

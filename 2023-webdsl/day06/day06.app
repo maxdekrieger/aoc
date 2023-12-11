@@ -39,7 +39,7 @@ application day06
     record : Long
 
     function beatsRecord(pressTime : Int) : Bool {
-      return (duration - pressTime).toString().parseLong() * pressTime.toString().parseLong() > record;
+      return ((duration - pressTime) + 0L) * pressTime.toString().parseLong() > record;
     }
   }
 

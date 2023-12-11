@@ -37,8 +37,10 @@ application day10
       steps := steps + 1;
     }
 
+    var result := steps / 2;
+
     log("----------------- AOC ANSWER PART 1 -----------------");
-    log(steps / 2);
+    log(result);
     log("-----------------------------------------------------");
   }
 
@@ -81,7 +83,7 @@ application day10
   }
 
   test part2 {
-    var grid := [ l.trim().split() | l in "../aoc-input/example-input-part2.txt".pathToFile().getContentAsString().trim().split("\n")];
+    var grid := [ l.trim().split() | l in "../aoc-input/input-part2.txt".pathToFile().getContentAsString().trim().split("\n")];
     var tiles : [[Tile]];
 
     for (y : Int from 0 to grid.length) {
@@ -121,29 +123,27 @@ application day10
 
     var total := 0;
     for (y : Int from 0 to tiles.length) {
-      var row := "";
       var inside := false;
+      var previousCurve := "";
       for (x : Int from 0 to tiles[0].length) {
         var t := tiles[y][x];
         if (t in loop) {
-          row := row + t.text;
           case (t.text) {
             "|" { inside := !inside; }
-            "-" { inside := false; }
-            "L" { inside := false; }
-            "J" { inside := false; }
-            "7" { inside := false; }
-            "F" { inside := false; }
-            "S" { inside := !inside; }
+            "L" { previousCurve := "L"; }
+            "F" { previousCurve := "F"; }
+            "S" { inside := !inside; /* by manual inspection on puzzle input, S acts as a | in my (actual) input */ }
+            "J" {
+              if (previousCurve == "F") { inside := !inside; } // forming an FJ curve which acts as a barrier
+            }
+            "7" {
+              if (previousCurve == "L") { inside := !inside; } // forming an L7 curve which acts as a barrier
+            }
           }
         } else if (inside) {
-          row := row + "I";
           total := total + 1;
-        } else {
-          row := row + ".";
         }
       }
-      log(row);
     }
 
     log("----------------- AOC ANSWER PART 2 -----------------");

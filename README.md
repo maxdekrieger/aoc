@@ -2,6 +2,7 @@
 
 All of my attempts at the [Advent of Code](https://adventofcode.com/) challenges:
 
+- 2024 - [WebDSL](https://webdsl.org/)
 - 2023 - [WebDSL](https://webdsl.org/)
 - 2022 - Rust until I gave up and used Python instead
 - 2021 - Python

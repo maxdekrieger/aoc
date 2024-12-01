@@ -27,18 +27,34 @@ application day01
     var left := [ l[1].parseInt() | l in lines ];
     var right := [ l[2].parseInt() | l in lines ];
 
+    Collections.sort(left);
     Collections.sort(right);
 
     var similarityScore := 0L;
-    for( i : Int from 0 to left.length ){
-      var startingIndex := right.indexOf(left[i]);
-      if( startingIndex > -1 ){
-        var multiplier := 1;
-        while( startingIndex + multiplier < right.length && right[startingIndex + multiplier] == left[i] ){
-          multiplier := multiplier + 1;
-        }
-        similarityScore := similarityScore + left[i] * multiplier;
+    var i := 0;
+    var j := 0;
+    while( i < left.length ){
+      var multiplier := 0;
+
+      // skip right until its current element is the same or larger as left's element
+      while( j < right.length && left[i] > right[j] ){
+        j := j + 1;
       }
+
+      // count how many elements are equal
+      while( j < right.length && left[i] == right[j] ){
+        multiplier := multiplier + 1;
+        j := j + 1;
+      }
+
+      // add result to similarity score and repeat for same numbers in left
+      similarityScore := similarityScore + left[i] * multiplier;
+      while( i+1 < left.length && left[i] == left[i+1] ){
+        similarityScore := similarityScore + left[i] * multiplier;
+        i := i + 1;
+      }
+
+      i := i + 1;
     }
 
     log("----------------- AOC ANSWER PART 2 -----------------");

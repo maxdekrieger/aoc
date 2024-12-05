@@ -14,20 +14,9 @@ application day05
     var result := 0;
 
     // iterate over update lines
-    for( m in [ /(\d+)/.allGroups(line[0]) | line in (/(\d+)(,\d+)+/.allGroups(input)) ] ){
-      var seenPageNumbers : [Int];
-      var correctlyOrdered := true;
-
-      // keep track of all numbers seen so far
-      for( pageNumber in [ pn[1].parseInt() | pn in m] ){
-        if( Or [ i in pageOrderingRules[pageNumber] | i : Int in seenPageNumbers ] ){
-          correctlyOrdered := false;
-        }
-        seenPageNumbers.add(pageNumber);
-      }
-
-      if( correctlyOrdered ){
-        result := result + seenPageNumbers[ (seenPageNumbers.length / 2) ];
+    for( line in [ [ d[1].parseInt() | d in /(\d+)/.allGroups(line[0]) ] | line in (/(\d+)(,\d+)+/.allGroups(input)) ] ){
+      if( isInCorrectOrder( line, pageOrderingRules ).first as Bool ){
+        result := result + line[ (line.length / 2) ];
       }
     }
 
@@ -37,11 +26,59 @@ application day05
   }
 
   test part2 {
-    var input := "../aoc-input/example-input-part2.txt".pathToFile().getContentAsString().trim().split("\n");
+    var input := "../aoc-input/input-part2.txt".pathToFile().getContentAsString().trim();
+    var pageOrderingRules : [[Int]] := [ for( i from 0 to 100 ){ List<Int>() } ];
 
-    // TODO
+    // construct page ordering rules
+    for( m in /(\d+)\|(\d+)/.allGroups(input) ){
+      pageOrderingRules[ m[1].parseInt() ].add( m[2].parseInt() );
+    }
+
+    var result := 0;
+
+    // iterate over update lines
+    for( line in [ [ d[1].parseInt() | d in /(\d+)/.allGroups(line[0]) ] | line in (/(\d+)(,\d+)+/.allGroups(input)) ] ){
+      if( ! isInCorrectOrder( line, pageOrderingRules ).first as Bool ){
+        var correctLine := correctOrder( line, pageOrderingRules );
+        result := result + correctLine[ (correctLine.length / 2) ];
+      }
+    }
 
     log("----------------- AOC ANSWER PART 2 -----------------");
-    log("");
+    log(result);
     log("-----------------------------------------------------");
+  }
+
+  function isInCorrectOrder( line : [Int], pageOrderingRules : [[Int]] ) : (Bool, Int, Int) {
+
+    // for every page number, check whether none of the earlier page numbers should be after it according to the rules
+    for( i from 0 to line.length ){
+      var pageNumber := line[i];
+      for ( j from 0 to i ){
+        if( line[j] in pageOrderingRules[pageNumber] ){
+          return (false, i, j);
+        }
+      }
+    }
+
+    return (true, -1, -1);
+  }
+
+  function correctOrder( line : [Int], pageOrderingRules : [[Int]] ) : [Int] {
+    // clone original line
+    var result := [ x | x in line ];
+
+    var feedback := isInCorrectOrder( result, pageOrderingRules );
+
+    // mutate order while its not correct
+    while( !feedback.first as Bool ){
+      // insert the page number that violates a rule right before the page number that should be later
+      var pageNumber := result[ feedback.second as Int ];
+      result.removeAt( feedback.second as Int );
+      result.insert( feedback.third as Int, pageNumber );
+
+      feedback := isInCorrectOrder( result, pageOrderingRules );
+    }
+
+    return result;
   }

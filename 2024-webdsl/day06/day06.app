@@ -84,20 +84,6 @@ application day06
 
     var result := sum([ [ b | b in row where b ].length | row in loopObstacles ]);
 
-    // for( i from 0 to obstacleGrid.length ){
-    //   var log := "";
-    //   for ( j from 0 to obstacleGrid[i].length ){
-    //     if( obstacleGrid[i][j] ){
-    //       log := log + "#";
-    //     } else if ( loopObstacles[i][j] ){
-    //       log := log + "O";
-    //     } else {
-    //       log := log + ".";
-    //     }
-    //   }
-    //   log(log);
-    // }
-
     log("----------------- AOC ANSWER PART 2 -----------------");
     log(result);
     log("-----------------------------------------------------");

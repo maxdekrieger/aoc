@@ -26,3 +26,6 @@ ROOT*.war
 *.db
 *build.xml.launch
 *clean-project.xml.launch
+
+**/data
+**/aoc-input
